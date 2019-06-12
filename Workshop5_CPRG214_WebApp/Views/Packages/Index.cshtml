@@ -1,0 +1,106 @@
+﻿@model IEnumerable<Workshop5_CPRG214_WebApp.Models.Packages>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="hero-wrap" style="background-image: url('../../images/bg_2.jpg');height:300px !important">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true" style="height:440px !important;">
+            <div class="col-md-9 text-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+                <span class="subheading">Special Offers</span>
+                <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Tour Packages</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (ViewBag._Message != string.Empty)
+{
+    if (Convert.ToInt32(ViewBag._Message) == 1)
+    {
+        <div id="messagebox" style="display:block;">
+            <div class="alert success">
+                <span class="closebtn">×</span>
+                <strong>Success!</strong> Packages insert successfully.
+            </div>
+        </div>
+    }
+}
+
+@*<div id="messagebox" style="display:none;">
+        <div class="alert" style="opacity: 0; display: none;">
+            <span class="closebtn">×</span>
+            <strong>Danger!</strong> Indicates a dangerous or potentially negative action.
+        </div>
+
+        <div class="alert info">
+            <span class="closebtn">×</span>
+            <strong>Info!</strong> Indicates a neutral informative change or action.
+        </div>
+        <div class="alert warning">
+            <span class="closebtn">×</span>
+            <strong>Warning!</strong> Indicates a warning that might need attention.
+        </div>
+    </div>*@
+
+<section class="ftco-section bg-light">
+    <div class="container-fluid">
+        <div class="row">
+            @*<div class="col-md-6">*@
+            <div class="row">
+                @{int i = 1; }
+                @foreach (var item in Model)
+                {
+                    <div class="col-md-4 col-sm-4 ftco-animate fadeInUp ftco-animated">
+                        <div class="destination">
+                            <a href="javascript://" class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url(images/@(i).jpg);">
+                                <div class="icon d-flex justify-content-center align-items-center">
+                                    <span class="icon-search2"></span>
+                                </div>
+                            </a>
+                            <div class="text p-3">
+                                <div class="d-flex">
+                                    <div class="one">
+                                        <h3><a href="#">@Html.DisplayFor(modelItem => item.PkgName)</a></h3>
+                                        <p class="rate">
+                                            <i class="icon-star"></i>
+                                            <i class="icon-star"></i>
+                                            <i class="icon-star"></i>
+                                            <i class="icon-star"></i>
+                                            <i class="icon-star-o"></i>
+                                            <span>8 Rating</span>
+                                        </p>
+                                    </div>
+                                    <div class="two">
+                                        <span class="price">@Html.DisplayFor(modelItem => item.PkgBasePrice)</span>
+                                    </div>
+                                </div>
+                                <p>@Html.DisplayFor(modelItem => item.PkgDesc)</p>
+                                <p class="days"><span>@Html.DisplayFor(modelItem => item.PkgStartDate)</span></p>
+                                <hr>
+                                <p class="bottom-area d-flex">
+                                    <span><i class="icon-map-o"></i> @Html.DisplayFor(modelItem => item.PkgEndDate)</span>
+                                    <span class="ml-auto"><a asp-action="Details" asp-controller="Packages" asp-route-id="@item.PackageId">Details</a></span>
+                                    <span class="ml-auto"><a asp-action="Insert" asp-controller="Packages" asp-route-id="@item.PackageId">Order Now</a></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    i++;
+                }
+                @*</div>*@
+            </div>
+        </div>
+    </div>
+</section>
+
+@*<script type="text/javascript">
+        $(document).ready(function () {
+            $('#ftco-navbar').addClass('bg-dark');
+        });
+    </script>*@
+
+
+

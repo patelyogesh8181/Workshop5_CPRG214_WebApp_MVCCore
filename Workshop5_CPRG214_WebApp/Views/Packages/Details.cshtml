@@ -1,0 +1,171 @@
+﻿@model Workshop5_CPRG214_WebApp.Models.Packages
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="hero-wrap" style="background-image: url('../../images/bg_3.jpg');height:300px !important">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true" style="height:440px !important;">
+            <div class="col-md-9 text-center ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+                <span class="subheading">Special Offers</span>
+                <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Tour Package</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link href="~/css/detailstyle.css" rel="stylesheet" />
+
+<section class="section section-sm section-first ftco-section bg-light">
+    <div class="container">
+        <div class="row row-50 justify-content-center">
+            <div class="col-md-6 col-lg-7">
+                <div class="row row-30 row-lg-40" data-lightgallery="group">
+                    <div class="col-12">
+                        <div class="oh-desktop">
+                            <!-- Thumbnail Joan-->
+                            <article class="thumbnail thumbnail-joan wow slideInRight" style="visibility: visible; animation-name: slideInRight;">
+                                <a class="thumbnail-joan-figure" data-lightgallery="item"><img src="~/images/1.jpg" alt="" width="700" height="518"></a>
+                                <div class="thumbnail-joan-caption">
+                                    <h5 class="thumbnail-joan-title"></h5>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="oh-desktop">
+                            <!-- Thumbnail Joan-->
+                            <article class="thumbnail thumbnail-joan wow slideInLeft" style="visibility: visible; animation-name: slideInLeft;">
+                                <a class="thumbnail-joan-figure" data-lightgallery="item"><img src="~/images/2.jpg" alt="" width="700" height="518"></a>
+                                <div class="thumbnail-joan-caption">
+                                    <h5 class="thumbnail-joan-title"></h5>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-5">
+                <div class="single-project single-project-4">
+                    <div class="single-tour-title">
+                        <h4 class="title-decoration-lines-bottom">@Html.DisplayFor(model => model.PkgName) <br class="d-none d-lg-block"> Africa<span></span></h4>
+                    </div>
+                    <div class="single-tour-price">
+                        <div class="product-big-price-wrap"><span class="product-big-price">$@Html.DisplayFor(model => model.PkgBasePrice)</span></div>
+                    </div>
+                    <p class="text-gray-500">@Html.DisplayFor(model => model.PkgDesc)</p>
+                    @*<p class="text-gray-500">Ut venenatis tellus in metus. Sed odio morbi quis commodo odio aenean. Ut ornare lectus sit amet est. Tellus orci ac auctor augue mauris augue neque gravida. Tempor commodo ullamcorper a lacus. Fermentum dui faucibus in ornare quam viverra.</p>*@
+                    <div class="divider divider-30"></div>
+                    <ul class="list list-description d-inline-block d-md-block">
+                        <li><span>@Html.DisplayNameFor(model => model.PkgStartDate):</span><span>@Html.DisplayFor(model => model.PkgStartDate)</span></li>
+                        <li><span>@Html.DisplayNameFor(model => model.PkgEndDate):</span><span>@Html.DisplayFor(model => model.PkgEndDate)</span></li>
+                        <li><span>@Html.DisplayNameFor(model => model.PkgBasePrice):</span><span>@Html.DisplayFor(model => model.PkgBasePrice)</span></li>
+                        <li><span>@Html.DisplayNameFor(model => model.PkgAgencyCommission):</span><span>@Html.DisplayFor(model => model.PkgAgencyCommission)</span></li>
+                    </ul>
+                    <div class="divider divider-30"></div>
+
+                    <div class="group-md group-middle justify-content-sm-start">
+                        <div>
+                            <a asp-action="Insert" asp-controller="Packages" asp-route-id="@Model.PackageId" class="btn btn-primary py-3 px-5">Order Now</a>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            
+
+        </div>
+    </div>
+</section>
+
+@*<script type="text/javascript">
+    $(document).ready(function () {
+        $('#ftco-navbar').removeClass('bg-dark');
+    });
+</script>*@
+
+
+@*<div class="col-md-12 hotel-single mt-4 mb-5 ftco-animate fadeInUp ftco-animated">
+    <span>Our Best hotels &amp; Rooms</span>
+    <h2>Luxury Hotel in Paris</h2>
+    <p class="rate mb-5">
+        <span class="loc"><a href="#"><i class="icon-map"></i> 291 South 21th Street, Suite 721 New York NY 10016</a></span>
+        <span class="star">
+            <i class="icon-star"></i>
+            <i class="icon-star"></i>
+            <i class="icon-star"></i>
+            <i class="icon-star"></i>
+            <i class="icon-star-o"></i>
+            8 Rating
+        </span>
+    </p>
+    <p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she continued her way.</p>
+    <div class="d-md-flex mt-5 mb-5">
+        <ul>
+            <li>The Big Oxmox advised her not to do so</li>
+            <li>When she reached the first hills of the Italic Mountains</li>
+            <li>She had a last view back on the skyline of her hometown </li>
+            <li>Bookmarksgrove, the headline of Alphabet </li>
+        </ul>
+        <ul class="ml-md-5">
+            <li>Question ran over her cheek, then she continued</li>
+            <li>Pityful a rethoric question ran</li>
+            <li>Mountains, she had a last view back on the skyline</li>
+            <li>Headline of Alphabet Village and the subline</li>
+        </ul>
+    </div>
+    <p>When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she continued her way.</p>
+</div>*@
+
+
+
+
+@*<div>
+        <h4>Packages</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.PkgName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PkgName)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.PkgStartDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PkgStartDate)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.PkgEndDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PkgEndDate)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.PkgDesc)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PkgDesc)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.PkgBasePrice)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PkgBasePrice)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.PkgAgencyCommission)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.PkgAgencyCommission)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.PackageId">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>*@
