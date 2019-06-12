@@ -21,7 +21,7 @@ namespace Workshop5_CPRG214_WebApp.Controllers
         // GET: Bookings
         public async Task<IActionResult> Index()
         {
-            var travelExpertDBContext = _context.Bookings.Include(b => b.Customer).Include(b => b.Package).Include(b => b.TripType);
+            var travelExpertDBContext = _context.Bookings.Include(b => b.Customer).Include(b => b.Package).Include(b => b.TripType).Include(b=>b.BookingDetails);
             return View(await travelExpertDBContext.ToListAsync());
         }
 

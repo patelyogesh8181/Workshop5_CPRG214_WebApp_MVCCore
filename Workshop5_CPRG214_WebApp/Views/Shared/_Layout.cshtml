@@ -29,13 +29,19 @@
         <link rel="stylesheet" href="~/css/flaticon.css">
         <link rel="stylesheet" href="~/css/icomoon.css">
         <link rel="stylesheet" href="~/css/style.css">
+
+        <link href="~/css/custom.css" rel="stylesheet" />
     </environment>
+
+    <script src="~/js/jquery.min.js"></script>
+
 </head>
 <body>
     <!-- Start nav -->
+
     <nav class="na navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
         <div class="container">
-            <a class="navbar-brand" href="~/Views/Home/Index.html">Travel Experts</a>
+            <a class="navbar-brand" href="~/Views/Home/Index.html">Travel World</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="oi oi-menu"></span> Menu
             </button>
@@ -43,18 +49,16 @@
             <div class="collapse navbar-collapse" id="ftco-nav">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active"><a asp-controller="Home" asp-action="Index" class="nav-link">Home</a></li>
-                    <li class="nav-item"><a asp-controller="Home" asp-action="Register" class="nav-link">Register</a></li>
-                    <li class="nav-item"><a asp-controller="Home" asp-action="Login" class="nav-link">Login</a></li>
                     <li class="nav-item"><a asp-controller="Packages" asp-action="Index" class="nav-link">Packages</a></li>
-                    @*<li class="nav-item"><a href="about.html" class="nav-link">About</a></li>*@
-                    @*<li class="nav-item"><a href="tour.html" class="nav-link">Tour</a></li>*@
-                    @*<li class="nav-item"><a href="hotel.html" class="nav-link">Hotels</a></li>
-                        <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>*@
-                    @*<li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-                        <li class="nav-item cta"><a href="contact.html" class="nav-link"><span>Add listing</span></a></li>*@
-                    @if (Context.Session.GetString("_FirstName") != string.Empty)
+                    <li class="nav-item"><a asp-controller="Home" asp-action="Login" class="nav-link">Login</a></li>
+                    <li class="nav-item"><a asp-controller="Home" asp-action="Register" class="nav-link">Register</a></li>
+                    @if (Context.Session.GetString("_CustomerId") != string.Empty)
                     {
-                        <li class="nav-item"><span class="colorwhite">Welcome,&nbsp;@Context.Session.GetString("_FirstName")</span><a asp-controller="Home" asp-action="Login" class="nav-link">Login out</a></li>
+                        if (Convert.ToInt32(Context.Session.GetString("_CustomerId")) > 0)
+                        {
+                            <li class="nav-item"><a asp-controller="BookingDetails" asp-action="Index" class="nav-link">Order Packages</a></li>
+                            <li class="nav-item"><span class="navbar-brand displayinline">Welcome,&nbsp;@Context.Session.GetString("_FirstName")</span><a asp-controller="Home" asp-action="Logout" class="nav-link">Login out</a></li>
+                        }
                     }
                 </ul>
             </div>
@@ -66,7 +70,7 @@
 
     <div>
         @RenderBody()
-        <hr />
+
         <footer class="ftco-footer ftco-bg-dark ftco-section">
             <div class="container">
                 <div class="row mb-5">
@@ -82,30 +86,24 @@
                         </div>
                     </div>
                     <div class="col-md">
-                        <div class="ftco-footer-widget mb-4 ml-md-5">
-                            <h2 class="ftco-heading-2">Information</h2>
-                            <ul class="list-unstyled">
-                                <li><a href="javascript://" class="py-2 d-block">About</a></li>
-                                <li><a href="javascript://" class="py-2 d-block">Service</a></li>
-                                <li><a href="javascript://" class="py-2 d-block">Terms and Conditions</a></li>
-                                @*<li><a href="javascript://" class="py-2 d-block">Become a partner</a></li>
-                                    <li><a href="javascript://" class="py-2 d-block">Best Price Guarantee</a></li>*@
-                                <li><a href="javascript://" class="py-2 d-block">Privacy and Policy</a></li>
-                            </ul>
+                            <div class="ftco-footer-widget mb-4 ml-md-5">
+                                <h2 class="ftco-heading-2">Information</h2>
+                                <ul class="list-unstyled">
+                                    <li class="nav-item active"><a asp-controller="Home" asp-action="Index" class="py-2 d-block">Home</a></li>
+                                    <li class="nav-item"><a asp-controller="Packages" asp-action="Index" class="py-2 d-block">Packages</a></li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md">
-                        <div class="ftco-footer-widget mb-4">
-                            <h2 class="ftco-heading-2">Customer Support</h2>
-                            <ul class="list-unstyled">
-                                @*<li><a href="javascript://" class="py-2 d-block">FAQ</a></li>
-                                    <li><a href="javascript://" class="py-2 d-block">Payment Option</a></li>
-                                    <li><a href="javascript://" class="py-2 d-block">Booking Tips</a></li>
-                                    <li><a href="javascript://" class="py-2 d-block">How it works</a></li>*@
-                                <li><a href="javascript://" class="py-2 d-block">Contact Us</a></li>
-                            </ul>
+                        <div class="col-md">
+                            <div class="ftco-footer-widget mb-4">
+                                <h2 class="ftco-heading-2">Customer Support</h2>
+                                <ul class="list-unstyled">
+                                    <li class="nav-item"><a asp-controller="Home" asp-action="Login" class="py-2 d-block">Login</a></li>
+                                    <li class="nav-item"><a asp-controller="Home" asp-action="Register" class="py-2 d-block">Register</a></li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
+
                     <div class="col-md">
                         <div class="ftco-footer-widget mb-4">
                             <h2 class="ftco-heading-2">Have a Questions?</h2>
@@ -135,7 +133,7 @@
     <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" /><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
 
     <environment include="Development">
-        <script src="~/js/jquery.min.js"></script>
+        
         <script src="~/js/jquery-migrate-3.0.1.min.js"></script>
         <script src="~/js/popper.min.js"></script>
         <script src="~/js/bootstrap.min.js"></script>
@@ -147,7 +145,7 @@
         <script src="~/js/aos.js"></script>
         <script src="~/js/jquery.animateNumber.min.js"></script>
         <script src="~/js/bootstrap-datepicker.js"></script>
-        <script src="~/js/jquery.timepicker.min.js"></script>
+        @*<script src="~/js/jquery.timepicker.min.js"></script>*@
         <script src="~/js/scrollax.min.js"></script>
         @*<script src="~/js/google-map.js"></script>*@
         <script src="~/js/main.js"></script>

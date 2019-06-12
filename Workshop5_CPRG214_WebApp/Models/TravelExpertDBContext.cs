@@ -19,6 +19,9 @@ namespace Workshop5_CPRG214_WebApp.Models
         public DbSet<BookingDetails> BookingDetails { get; set; }
         public DbSet<TripTypes> TripTypes { get; set; }
         public DbSet<Packages_Products_Suppliers> Packages_Products_Suppliers { get; set; }
+        public DbSet<Regions> Regions { get; set; }
+        public DbSet<Classes> Classes { get; set; }
+        public DbSet<Fees> Fees { get; set; }
 
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{

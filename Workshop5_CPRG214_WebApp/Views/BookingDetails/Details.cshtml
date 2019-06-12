@@ -1,0 +1,90 @@
+﻿@model Workshop5_CPRG214_WebApp.Models.BookingDetails
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>BookingDetails</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ItineraryNo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ItineraryNo)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TripStart)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TripStart)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TripEnd)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TripEnd)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Destination)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Destination)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BasePrice)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BasePrice)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AgencyCommission)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AgencyCommission)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ProductSupplierId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ProductSupplierId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Booking)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Booking.BookingId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Class)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Class.ClassId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Fee)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Fee.FeeId)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Region)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Region.RegionId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.BookingDetailId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

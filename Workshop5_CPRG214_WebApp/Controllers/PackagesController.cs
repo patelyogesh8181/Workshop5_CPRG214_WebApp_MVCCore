@@ -22,6 +22,7 @@ namespace Workshop5_CPRG214_WebApp.Controllers
         // GET: Packages
         public async Task<IActionResult> Index()
         {
+            ViewBag._Message = "0";
             return View(await _context.Packages.ToListAsync());
         }
 
@@ -33,14 +34,28 @@ namespace Workshop5_CPRG214_WebApp.Controllers
                 return NotFound();
             }
 
-            var packages = await _context.Packages
-                .FirstOrDefaultAsync(m => m.PackageId == id);
-            if (packages == null)
+            if (HttpContext.Session.GetString("_CustomerId") != string.Empty)
             {
-                return NotFound();
-            }
+                if (Convert.ToInt32(HttpContext.Session.GetString("_CustomerId")) > 0)
+                {
+                    var packages = await _context.Packages
+                .FirstOrDefaultAsync(m => m.PackageId == id);
+                    if (packages == null)
+                    {
+                        return NotFound();
+                    }
 
-            return View(packages);
+                    return View(packages);
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Home");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
 
         // GET: Packages/Insert/5
@@ -51,41 +66,57 @@ namespace Workshop5_CPRG214_WebApp.Controllers
                 return NotFound();
             }
 
-            var packages = await _context.Packages
-                .FirstOrDefaultAsync(m => m.PackageId == id);
-            if (packages == null)
+            if (HttpContext.Session.GetString("_CustomerId") != string.Empty)
             {
-                return NotFound();
+                if (Convert.ToInt32(HttpContext.Session.GetString("_CustomerId")) > 0)
+                {
+                    var packages = await _context.Packages
+                        .FirstOrDefaultAsync(m => m.PackageId == id);
+                    if (packages == null)
+                    {
+                        return NotFound();
+                    }
+                    Guid nGuid = new Guid();
+                    Bookings objBookings = new Bookings();
+                    objBookings.BookingDate = DateTime.Now;
+                    objBookings.BookingNo = nGuid.ToString();
+                    objBookings.TravelerCount = 0.1;
+                    objBookings.CustomerId = Convert.ToInt32(HttpContext.Session.GetString("_CustomerId"));
+                    objBookings.TripTypeId = "B";
+                    objBookings.PackageId = Convert.ToInt32(packages.PackageId);
+
+                    _context.Add(objBookings);
+                    _context.SaveChanges();
+
+
+                    BookingDetails obj = new BookingDetails();
+                    obj.TripStart = packages.PkgStartDate;
+                    obj.TripEnd = packages.PkgEndDate;
+                    obj.Description = packages.PkgDesc;
+                    obj.Destination = packages.PkgName;
+                    obj.BasePrice = packages.PkgBasePrice;
+                    obj.AgencyCommission = packages.PkgAgencyCommission;
+                    obj.BookingId = objBookings.BookingId;
+                    obj.RegionId = "AFR";
+                    obj.ClassId = "BSN";
+                    obj.FeeId = "CH";
+
+                    _context.Add(obj);
+                    _context.SaveChanges();
+
+                    ViewBag._Message = "1";
+
+                    return RedirectToAction("Index", "Packages");
+                }
+                else
+                {
+                    return RedirectToAction("Login", "Home");
+                }
             }
-            Guid nGuid = new Guid();
-            Bookings objBookings = new Bookings();
-            objBookings.BookingDate = DateTime.Now;
-            objBookings.BookingNo = nGuid.ToString();
-            objBookings.TravelerCount = 0.1;
-            objBookings.CustomerId = Convert.ToInt32(HttpContext.Session.GetString("_CustomerId"));
-            objBookings.TripTypeId = "B";
-            objBookings.PackageId = Convert.ToInt32(packages.PackageId);
-
-            _context.Add(objBookings);
-            _context.SaveChanges();
-
-
-            BookingDetails obj = new BookingDetails();
-            obj.TripStart = packages.PkgStartDate;
-            obj.TripEnd = packages.PkgEndDate;
-            obj.Description = packages.PkgDesc;
-            obj.Destination = packages.PkgName;
-            obj.BasePrice = packages.PkgBasePrice;
-            obj.AgencyCommission = packages.PkgAgencyCommission;
-            obj.BookingId = objBookings.BookingId;
-            obj.RegionId = "AFR";
-            obj.ClassId = "BSN";
-            obj.FeeId = "CH";
-
-            _context.Add(obj);
-            _context.SaveChanges();
-
-            return View("Index");
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
         }
 
         // GET: Packages/Create

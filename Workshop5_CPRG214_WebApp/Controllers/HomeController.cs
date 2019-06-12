@@ -52,6 +52,19 @@ namespace Workshop5_CPRG214_WebApp.Controllers
             return View();
         }
 
+        public ActionResult Logout()
+        {
+            HttpContext.Session.Remove("_Email");
+            HttpContext.Session.Remove("_Password");
+            HttpContext.Session.Remove("_CustomerId");
+            HttpContext.Session.Remove("_FirstName");
+            HttpContext.Session.Remove("_LastName");
+
+            HttpContext.Session.Clear();
+
+            return View("Index");
+        }
+
         public ActionResult Create(Customer objCustomer)
         {
             try

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Workshop5_CPRG214_WebApp.Models
 {
-    public class BookingDetails
+    public partial class BookingDetails
     {
         [Key]
         public int BookingDetailId { get; set; }
@@ -19,19 +19,19 @@ namespace Workshop5_CPRG214_WebApp.Models
         public decimal? BasePrice { get; set; }
         public decimal? AgencyCommission { get; set; }
 
-        [ForeignKey("BookingId")]
+        //[ForeignKey("BookingId")]
         public int? BookingId { get; set; }
 
-        [ForeignKey("RegionId")]
+        //[ForeignKey("RegionId")]
         public string RegionId { get; set; }
 
-        [ForeignKey("ClassId")]
+        //[ForeignKey("ClassId")]
         public string ClassId { get; set; }
 
-        [ForeignKey("FeeId")]
+        //[ForeignKey("FeeId")]
         public string FeeId { get; set; }
 
-        [ForeignKey("ProductSupplierId")]
+        //[ForeignKey("ProductSupplierId")]
         public int? ProductSupplierId { get; set; }
 
         public Bookings Booking { get; set; }
