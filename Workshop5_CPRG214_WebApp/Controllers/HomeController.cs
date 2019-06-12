@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Workshop5_CPRG214_WebApp.Models;
 
@@ -10,8 +11,15 @@ namespace Workshop5_CPRG214_WebApp.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly TravelExpertDBContext _context;
+
+        public HomeController(TravelExpertDBContext context)
+        {
+            _context = context;
+        }
         public IActionResult Index()
         {
+            @ViewBag._UserName = "";
             return View();
         }
 
@@ -33,6 +41,72 @@ namespace Workshop5_CPRG214_WebApp.Controllers
         {
             return View();
         }
+
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        public ActionResult Create(Customer objCustomer)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    _context.Add(objCustomer);
+                    _context.SaveChanges();
+                    //db.Customers.Add(objCustomer);
+                }
+            }
+            catch (Exception ex)
+            { }
+            return View("Register");
+        }
+
+        public ActionResult CheckLogin([Bind("CustEmail,PasswordNotHashed")] Customer objcustomer)
+        {
+            try
+            {
+                //if (ModelState.IsValid)
+                //{
+                IQueryable<Customer> myUsers = from user in _context.Customers
+                                               where user.CustEmail == objcustomer.CustEmail && user.PasswordNotHashed == objcustomer.PasswordNotHashed
+                                               select user;
+                Customer myCustomer = myUsers.FirstOrDefault();
+                if (myCustomer.CustomerId > 0)
+                {
+
+                    HttpContext.Session.SetString("_Email", myCustomer.CustEmail);
+                    HttpContext.Session.SetString("_Password", myCustomer.PasswordNotHashed);
+                    HttpContext.Session.SetString("_CustomerId", Convert.ToString(myCustomer.CustomerId));
+                    HttpContext.Session.SetString("_FirstName", myCustomer.CustFirstName);
+                    HttpContext.Session.SetString("_LastName", myCustomer.CustLastName);
+
+                    ViewBag._FirstName = HttpContext.Session.GetString("_FirstName");
+                    ViewBag._LastName = HttpContext.Session.GetString("_LastName");
+                    ViewBag._UserName = HttpContext.Session.GetString("_FirstName") + " " + HttpContext.Session.GetString("_LastName");
+                    return View("Index");
+                }
+                else
+                {
+                    return View("Login");
+                }
+            }
+            catch (Exception ex)
+            {
+                return View("Login");
+            }
+        }
+
+        //public ActionResult Packages() {
+        //    var lst = _context.Packages.ToList();
+        //    return View();
+        //}
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
