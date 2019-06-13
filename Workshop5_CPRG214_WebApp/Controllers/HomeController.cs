@@ -107,6 +107,7 @@ namespace Workshop5_CPRG214_WebApp.Controllers
                     HttpContext.Session.SetString("_CustomerId", Convert.ToString(myCustomer.CustomerId));
                     HttpContext.Session.SetString("_FirstName", myCustomer.CustFirstName);
                     HttpContext.Session.SetString("_LastName", myCustomer.CustLastName);
+                    HttpContext.Session.SetString("_UserName", myCustomer.CustFirstName + " "+ myCustomer.CustLastName);
 
                     ViewBag._FirstName = HttpContext.Session.GetString("_FirstName");
                     ViewBag._LastName = HttpContext.Session.GetString("_LastName");

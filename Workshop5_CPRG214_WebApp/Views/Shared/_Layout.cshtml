@@ -55,7 +55,7 @@
                         if (Convert.ToInt32(Context.Session.GetString("_CustomerId")) > 0)
                         {
                             <li class="nav-item"><a asp-controller="BookingDetails" asp-action="Index" class="nav-link">Order Packages</a></li>
-                            <li class="nav-item"><span class="navbar-brand displayinline">Welcome,&nbsp;@Context.Session.GetString("_FirstName")</span><a asp-controller="Home" asp-action="Logout" class="nav-link">Login out</a></li>
+                            <li class="nav-item"><span class="navbar-brand displayinline">Welcome,&nbsp;@Context.Session.GetString("_UserName")</span><a asp-controller="Home" asp-action="Logout" class="nav-link">Log out</a></li>
                         }
                     }
                 </ul>
