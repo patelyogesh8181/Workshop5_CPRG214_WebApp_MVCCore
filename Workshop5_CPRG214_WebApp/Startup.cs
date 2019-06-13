@@ -54,7 +54,7 @@ namespace Workshop5_CPRG214_WebApp
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsProduction())
+            if (env.IsProduction() || env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }

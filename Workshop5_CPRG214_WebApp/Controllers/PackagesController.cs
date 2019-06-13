@@ -61,61 +61,69 @@ namespace Workshop5_CPRG214_WebApp.Controllers
         // GET: Packages/Insert/5
         public async Task<IActionResult> Insert(int? id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
-            }
-
-            if (HttpContext.Session.GetString("_CustomerId") != string.Empty)
-            {
-                if (Convert.ToInt32(HttpContext.Session.GetString("_CustomerId")) > 0)
+                if (id == null)
                 {
-                    var packages = await _context.Packages
-                        .FirstOrDefaultAsync(m => m.PackageId == id);
-                    if (packages == null)
+                    return NotFound();
+                }
+
+                if (HttpContext.Session.GetString("_CustomerId") != string.Empty)
+                {
+                    if (Convert.ToInt32(HttpContext.Session.GetString("_CustomerId")) > 0)
                     {
-                        return NotFound();
+                        var packages = await _context.Packages
+                            .FirstOrDefaultAsync(m => m.PackageId == id);
+                        if (packages == null)
+                        {
+                            return NotFound();
+                        }
+                        Guid nGuid = new Guid();
+                        Bookings objBookings = new Bookings();
+                        objBookings.BookingDate = DateTime.Now;
+                        objBookings.BookingNo = nGuid.ToString();
+                        objBookings.TravelerCount = 0.1;
+                        objBookings.CustomerId = Convert.ToInt32(HttpContext.Session.GetString("_CustomerId"));
+                        objBookings.TripTypeId = "B";
+                        objBookings.PackageId = Convert.ToInt32(packages.PackageId);
+
+                        _context.Add(objBookings);
+                        _context.SaveChanges();
+
+
+                        BookingDetails obj = new BookingDetails();
+                        obj.TripStart = packages.PkgStartDate;
+                        obj.TripEnd = packages.PkgEndDate;
+                        obj.Description = packages.PkgDesc;
+                        obj.Destination = packages.PkgName;
+                        obj.BasePrice = packages.PkgBasePrice;
+                        obj.AgencyCommission = packages.PkgAgencyCommission;
+                        obj.BookingId = objBookings.BookingId;
+                        obj.RegionId = "AFR";
+                        obj.ClassId = "BSN";
+                        obj.FeeId = "CH";
+
+                        _context.Add(obj);
+                        _context.SaveChanges();
+
+                        ViewBag._MessageNo = "1";
+
+                        return RedirectToAction("Index", "Packages");
                     }
-                    Guid nGuid = new Guid();
-                    Bookings objBookings = new Bookings();
-                    objBookings.BookingDate = DateTime.Now;
-                    objBookings.BookingNo = nGuid.ToString();
-                    objBookings.TravelerCount = 0.1;
-                    objBookings.CustomerId = Convert.ToInt32(HttpContext.Session.GetString("_CustomerId"));
-                    objBookings.TripTypeId = "B";
-                    objBookings.PackageId = Convert.ToInt32(packages.PackageId);
-
-                    _context.Add(objBookings);
-                    _context.SaveChanges();
-
-
-                    BookingDetails obj = new BookingDetails();
-                    obj.TripStart = packages.PkgStartDate;
-                    obj.TripEnd = packages.PkgEndDate;
-                    obj.Description = packages.PkgDesc;
-                    obj.Destination = packages.PkgName;
-                    obj.BasePrice = packages.PkgBasePrice;
-                    obj.AgencyCommission = packages.PkgAgencyCommission;
-                    obj.BookingId = objBookings.BookingId;
-                    obj.RegionId = "AFR";
-                    obj.ClassId = "BSN";
-                    obj.FeeId = "CH";
-
-                    _context.Add(obj);
-                    _context.SaveChanges();
-
-                    ViewBag._Message = "1";
-
-                    return RedirectToAction("Index", "Packages");
+                    else
+                    {
+                        return RedirectToAction("Login", "Home");
+                    }
                 }
                 else
                 {
                     return RedirectToAction("Login", "Home");
                 }
             }
-            else
+            catch(Exception ex)
             {
-                return RedirectToAction("Login", "Home");
+                ViewBag._MessageNo = "-1";
+                return RedirectToAction("Index", "Packages");
             }
         }
 

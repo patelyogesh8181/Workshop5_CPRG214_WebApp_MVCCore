@@ -16,34 +16,30 @@
     </div>
 </div>
 
-@if (ViewBag._Message != string.Empty)
+@if (Convert.ToString(ViewBag._MessageNo) != null)
 {
-    if (Convert.ToInt32(ViewBag._Message) == 1)
+    if (Convert.ToInt32(ViewBag._MessageNo) == 0)
     {
-        <div id="messagebox" style="display:block;">
-            <div class="alert success">
-                <span class="closebtn">×</span>
-                <strong>Success!</strong> Packages insert successfully.
-            </div>
+        <div class="alert warning">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <strong>Warning!</strong> Mandatory fields are required.
+        </div>
+    }
+    else if (Convert.ToInt32(ViewBag._MessageNo) == -1)
+    {
+        <div class="alert">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <strong>Error!</strong> Please try again later.
+        </div>
+    }
+    else if (Convert.ToInt32(ViewBag._MessageNo) == 1)
+    {
+        <div class="alert success">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <strong>Success!</strong> Package order successfully.
         </div>
     }
 }
-
-@*<div id="messagebox" style="display:none;">
-        <div class="alert" style="opacity: 0; display: none;">
-            <span class="closebtn">×</span>
-            <strong>Danger!</strong> Indicates a dangerous or potentially negative action.
-        </div>
-
-        <div class="alert info">
-            <span class="closebtn">×</span>
-            <strong>Info!</strong> Indicates a neutral informative change or action.
-        </div>
-        <div class="alert warning">
-            <span class="closebtn">×</span>
-            <strong>Warning!</strong> Indicates a warning that might need attention.
-        </div>
-    </div>*@
 
 <section class="ftco-section bg-light">
     <div class="container-fluid">

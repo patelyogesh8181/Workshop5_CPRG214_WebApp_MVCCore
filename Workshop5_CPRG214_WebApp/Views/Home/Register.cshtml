@@ -12,38 +12,63 @@
             </div>
         </div>
 
+        @if (Convert.ToString(ViewBag._MessageNo) != null)
+        {
+            if (Convert.ToInt32(ViewBag._MessageNo) == 0)
+            {
+                <div class="alert warning">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    <strong>Warning!</strong> Mandatory fields are required.
+                </div>
+            }
+            else if (Convert.ToInt32(ViewBag._MessageNo) == -1)
+            {
+                <div class="alert">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    <strong>Error!</strong> Please try again later.
+                </div>
+            }
+            else if (Convert.ToInt32(ViewBag._MessageNo) == 1)
+            {
+                <div class="alert success">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    <strong>Success!</strong> Customer register successfully.
+                </div>
+            }
+        }
+
         <div class="row block-12">
             <div class="col-md-6 pr-md-5">
                 <form asp-action="Create">
                     <div class="form-group">
                         <label for="CustEmail">Email</label>
-                        <input asp-for="CustEmail" class="form-control" placeholder="Email" required />
+                        <input asp-for="CustEmail" class="form-control" placeholder="Email" required maxlength="50" />
                         <span asp-validation-for="CustEmail" class="text-danger"></span>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="PasswordNotHashed">Password</label>
-                        <input asp-for="PasswordNotHashed" class="form-control" placeholder="Password" type="password" required />
+                        <input asp-for="PasswordNotHashed" class="form-control" placeholder="Password" type="password" required maxlength="20" />
                         <span asp-validation-for="PasswordNotHashed" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label for="ConfirmPassword">Confirm Password</label>
-                        <input asp-for="ConfirmPassword" class="form-control" placeholder="Confirm Password" type="password" required />
+                        <input asp-for="ConfirmPassword" class="form-control" placeholder="Confirm Password" type="password" required maxlength="20" />
                         <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label for="CustFirstName">First Name</label>
-                        <input asp-for="CustFirstName" class="form-control" placeholder="First Name" required />
+                        <input asp-for="CustFirstName" class="form-control" placeholder="First Name" required maxlength="25" />
                         <span asp-validation-for="CustFirstName" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label for="CustLastName">Last Name</label>
-                        <input asp-for="CustLastName" class="form-control" placeholder="Last Name" required />
+                        <input asp-for="CustLastName" class="form-control" placeholder="Last Name" required maxlength="25" />
                         <span asp-validation-for="CustLastName" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label for="CustAddress">Address</label>
-                        <input asp-for="CustAddress" class="form-control" placeholder="Address" required />
+                        <input asp-for="CustAddress" class="form-control" placeholder="Address" required maxlength="50" />
                         <span asp-validation-for="CustAddress" class="text-danger"></span>
                     </div>
                     <div class="form-group">
@@ -55,32 +80,32 @@
             <div class="col-md-6 pr-md-5">
                 <div class="form-group">
                     <label for="CustCity">City</label>
-                    <input asp-for="CustCity" class="form-control" placeholder="City" required />
+                    <input asp-for="CustCity" class="form-control" placeholder="City" required maxlength="50" />
                     <span asp-validation-for="CustCity" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label for="CustProv">Province</label>
-                    <input asp-for="CustProv" class="form-control" placeholder="Province" required />
+                    <input asp-for="CustProv" class="form-control" placeholder="Province" required maxlength="2" />
                     <span asp-validation-for="CustProv" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label for="CustPostal">Postal Code</label>
-                    <input asp-for="CustPostal" class="form-control" placeholder="Postal Code" required />
+                    <input asp-for="CustPostal" class="form-control" placeholder="Postal Code" required maxlength="7" />
                     <span asp-validation-for="CustPostal" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label for="CustCountry">Country</label>
-                    <input asp-for="CustCountry" class="form-control" placeholder="Country" required />
+                    <input asp-for="CustCountry" class="form-control" placeholder="Country" required maxlength="25" />
                     <span asp-validation-for="CustCountry" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label for="CustHomePhone">Home Phone</label>
-                    <input asp-for="CustHomePhone" class="form-control" placeholder="Home Phone" />
+                    <input asp-for="CustHomePhone" class="form-control" placeholder="Home Phone" maxlength="20" />
                     <span asp-validation-for="CustHomePhone" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label for="CustBusPhone">Business Phone</label>
-                    <input asp-for="CustBusPhone" class="form-control" placeholder="Business Phone" />
+                    <input asp-for="CustBusPhone" class="form-control" placeholder="Business Phone" maxlength="20" />
                     <span asp-validation-for="CustBusPhone" class="text-danger"></span>
                 </div>
                 </form>

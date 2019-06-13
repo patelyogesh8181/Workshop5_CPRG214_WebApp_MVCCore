@@ -19,7 +19,8 @@ namespace Workshop5_CPRG214_WebApp.Controllers
         }
         public IActionResult Index()
         {
-            @ViewBag._UserName = "";
+            ViewBag._UserName = "";
+            ViewBag._MessageNo = string.Empty;
             return View();
         }
 
@@ -74,10 +75,17 @@ namespace Workshop5_CPRG214_WebApp.Controllers
                     _context.Add(objCustomer);
                     _context.SaveChanges();
                     //db.Customers.Add(objCustomer);
+                    ViewBag._MessageNo = "1";
+                }
+                else
+                {
+                    ViewBag._MessageNo = "0";
                 }
             }
             catch (Exception ex)
-            { }
+            {
+                ViewBag._MessageNo = "-1";
+            }
             return View("Register");
         }
 
@@ -91,9 +99,9 @@ namespace Workshop5_CPRG214_WebApp.Controllers
                                                where user.CustEmail == objcustomer.CustEmail && user.PasswordNotHashed == objcustomer.PasswordNotHashed
                                                select user;
                 Customer myCustomer = myUsers.FirstOrDefault();
-                if (myCustomer.CustomerId > 0)
-                {
 
+                if (myCustomer != null)
+                {
                     HttpContext.Session.SetString("_Email", myCustomer.CustEmail);
                     HttpContext.Session.SetString("_Password", myCustomer.PasswordNotHashed);
                     HttpContext.Session.SetString("_CustomerId", Convert.ToString(myCustomer.CustomerId));
@@ -107,11 +115,13 @@ namespace Workshop5_CPRG214_WebApp.Controllers
                 }
                 else
                 {
+                    ViewBag._MessageNo = "0";
                     return View("Login");
                 }
             }
             catch (Exception ex)
             {
+                ViewBag._MessageNo = "-1";
                 return View("Login");
             }
         }

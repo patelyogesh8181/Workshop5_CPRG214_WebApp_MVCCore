@@ -12,17 +12,35 @@
             </div>
         </div>
 
+        @if (Convert.ToString(ViewBag._MessageNo) != null)
+        {
+            if (Convert.ToInt32(ViewBag._MessageNo) == 0)
+            {
+                <div class="alert warning">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    <strong>Warning!</strong> Invalid email address & password.
+                </div>
+            }
+            else if (Convert.ToInt32(ViewBag._MessageNo) == -1)
+            {
+                <div class="alert">
+                    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                    <strong>Error!</strong> Please try again later.
+                </div>
+            }
+        }
+
         <div class="row block-12">
             <div class="col-md-6 pr-md-5">
                 <form asp-action="CheckLogin">
                     <div class="form-group">
                         <label asp-for="CustEmail" class="control-label">Email</label>
-                        <input asp-for="CustEmail" class="form-control" placeholder="Email" required />
+                        <input asp-for="CustEmail" class="form-control" placeholder="Email" required maxlength="50" />
                         <span asp-validation-for="CustEmail" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="PasswordNotHashed" class="control-label">Password</label>
-                        <input asp-for="PasswordNotHashed" class="form-control" placeholder="Password" required type="password" />
+                        <input asp-for="PasswordNotHashed" class="form-control" placeholder="Password" required type="password" maxlength="20" />
                         <span asp-validation-for="PasswordNotHashed" class="text-danger"></span>
                     </div>
                     <div class="form-group">
@@ -39,7 +57,7 @@
 }
 
 <script type="text/javascript">
-        $(document).ready(function () {
-            $('#ftco-navbar').removeClass('ftco-navbar-light');
-        });
+    $(document).ready(function () {
+        $('#ftco-navbar').removeClass('ftco-navbar-light');
+    });
 </script>
